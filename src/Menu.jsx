@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import AuthContext from './AuthContext.js';
+import AuthContext from './AuthContext.jsx';
 
 export default () => {
   const { authContext } = useContext(AuthContext);
@@ -18,4 +18,4 @@ export default () => {
       ) : null}
     </ul>
   );
-}
+};

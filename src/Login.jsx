@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import { object, string } from 'yup';
 import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import AuthContext from './AuthContext.js';
+import AuthContext from './AuthContext.jsx';
 
 const loginSchema = object({
   username: string().required(),

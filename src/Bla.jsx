@@ -4,7 +4,7 @@ import Menu from './Menu.jsx';
 import Login from './Login.jsx';
 import Home from './Home.jsx';
 import NotFound from './NotFound.jsx';
-import AuthContext from './AuthContext.js';
+import AuthContext from './AuthContext.jsx';
 import anonymous from './utils.js';
 
 export default () => {

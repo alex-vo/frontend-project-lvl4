@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import AuthContext from './AuthContext.js';
+import AuthContext from './AuthContext.jsx';
 import anonymous from './utils.js';
 
 export default () => {
