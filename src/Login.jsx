@@ -1,14 +1,9 @@
 import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import { object, string } from 'yup';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from './AuthContext.jsx';
-
-const loginSchema = object({
-  username: string().required(),
-  password: string().required(),
-});
 
 export default () => {
   const { authContext, setAuthContext } = useContext(AuthContext);
@@ -22,20 +17,15 @@ export default () => {
   return (
     <div>
       {/* todo formik hook */}
+      <Link to="/signup">sign up</Link>
       <Formik
         initialValues={{ username: '', password: '' }}
-        validate={(values) => {
-          const errors = {};
-          try {
-            loginSchema.validateSync(values, { abortEarly: false });
-          } catch (e) {
-            e.inner.forEach((err) => {
-              errors[err.path] = err.message;
-            });
-          }
-          return errors;
-        }}
+        validationSchema={object({
+          username: string().required(),
+          password: string().required(),
+        })}
         onSubmit={(values, { setSubmitting, setErrors }) => {
+          setSubmitting(true);
           axios.post('/api/v1/login', values)
             .then(({ data }) => {
               const newAuthContext = {

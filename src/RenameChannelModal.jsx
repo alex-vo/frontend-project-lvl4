@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleNewChannelModal, toggleRenameChannelModal } from './slices/chatSlice.js';
+import { toggleRenameChannelModal } from './slices/chatSlice.js';
 import SocketContext from './SocketContext.jsx';
 
 export default () => {

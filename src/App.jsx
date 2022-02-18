@@ -8,6 +8,7 @@ import AuthContext from './AuthContext.jsx';
 import anonymous from './utils.js';
 import SocketContext from './SocketContext.jsx';
 import { addChannel, addMessage, removeChannel, renameChannel } from './slices/chatSlice.js';
+import Signup from './Signup.jsx';
 
 export default ({ socket }) => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ export default ({ socket }) => {
         <Router>
           <div>
             <Routes>
+              <Route exact path="/signup" element={<Signup/>}/>
               <Route exact path="/login" element={<Login/>}/>
               <Route exact path="/" element={<Home/>}/>
               <Route path="*" element={<NotFound/>}/>
