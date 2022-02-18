@@ -34,3 +34,7 @@ rules:
   functional/no-throw-statement: 0
   object-curly-newline: 0
   react/jsx-tag-spacing: 0
+  no-param-reassign: 0
+  max-len: 0
+  jsx-a11y/no-noninteractive-element-interactions: 0
+  jsx-a11y/no-autofocus: 0
