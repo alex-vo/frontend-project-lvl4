@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { selectChannel, toggleNewChannelModal, toggleRenameChannelModal } from './slices/chatSlice.js';
 import Channel from './Channel.jsx';
 import SocketContext from './SocketContext.jsx';
@@ -35,9 +37,14 @@ export default () => {
     }
   };
 
+  const { t } = useTranslation();
+
   const deleteChannel = (id) => () => {
     socket.emit('removeChannel', { id }, (result) => {
       // todo chow error message
+      if (result.status === 'ok') {
+        toast(t('channel-deleted'));
+      }
     });
   };
 
@@ -68,15 +75,14 @@ export default () => {
             <li key={id} className="nav-item w-100">
               <div role="group" className="d-flex dropdown btn-group" onBlur={close}>
                 <Channel id={id} name={name} currentChannelId={currentChannelId} switchChannel={switchChannel}/>
+                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                 <button
                   aria-haspopup="true"
                   aria-expanded="false"
                   type="button"
                   className="flex-grow-0 dropdown-toggle dropdown-toggle-split btn"
                   onClick={toggleChannelMenu(id)}
-                >
-                  {/*<span className="visually-hidden">Управление каналом</span>*/}
-                </button>
+                />
                 {
                   (channelManagementState === id) && (
                     <div
@@ -92,8 +98,8 @@ export default () => {
                       data-popper-escaped="false"
                       data-popper-placement="bottom-start"
                     >
-                      <a href="#" className="dropdown-item" role="button" onClick={deleteChannel(id)}>Удалить</a>
-                      <a href="#" className="dropdown-item" role="button" onClick={renameChannel(id)}>Переименовать</a>
+                      <a href="#" className="dropdown-item" role="button" onClick={deleteChannel(id)}>{t('delete')}</a>
+                      <a href="#" className="dropdown-item" role="button" onClick={renameChannel(id)}>{t('rename')}</a>
                     </div>
                   )
                 }

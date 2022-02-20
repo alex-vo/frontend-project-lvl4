@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import { object, string } from 'yup';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import AuthContext from './AuthContext.jsx';
 
 export default () => {
@@ -14,15 +15,16 @@ export default () => {
   }
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <div>
       {/* todo formik hook */}
-      <Link to="/signup">sign up</Link>
+      <Link to="/signup">{t('sign up')}</Link>
       <Formik
         initialValues={{ username: '', password: '' }}
-        validationSchema={object({
-          username: string().required(),
-          password: string().required(),
+        validationSchema={object().shape({
+          username: string().required(t('required')),
+          password: string().required(t('required')),
         })}
         onSubmit={(values, { setSubmitting, setErrors }) => {
           setSubmitting(true);
@@ -63,7 +65,7 @@ export default () => {
               />
               {errors.password && touched.password && errors.password}
               <button type="submit" disabled={isSubmitting || Object.keys(errors).length > 0}>
-                Submit
+                {t('login')}
               </button>
             </form>
           )

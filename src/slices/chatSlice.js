@@ -66,7 +66,7 @@ export const {
   addChannel,
   removeChannel,
   toggleRenameChannelModal,
-  renameChannel
+  renameChannel,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

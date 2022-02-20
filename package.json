@@ -8,7 +8,7 @@
     "node": "14.x"
   },
   "scripts": {
-    "test": "echo 'no tests for this project'",
+    "test": "echo 'no tests for  this project'",
     "prebuild": "rm -rf dist",
     "build": "NODE_ENV=production npx webpack --mode production",
     "start": "node bin/slack.js"
@@ -35,7 +35,9 @@
     "fastify-static": "^4.0.1",
     "formik": "^2.2.9",
     "http-errors": "^1.8.0",
+    "i18next": "^21.6.11",
     "jquery": "^3.6.0",
+    "leo-profanity": "^1.5.0",
     "lodash": "^4.17.21",
     "pino-pretty": "^4.8.0",
     "point-of-view": "^4.14.0",
@@ -46,6 +48,7 @@
     "react-i18next": "^11.15.4",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
+    "react-toastify": "^8.2.0",
     "regenerator-runtime": "^0.13.7",
     "socket.io-client": "^4.4.1",
     "yup": "^0.32.11"

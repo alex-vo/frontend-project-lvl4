@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { toggleNewChannelModal } from './slices/chatSlice.js';
 import SocketContext from './SocketContext.jsx';
 
@@ -12,13 +14,15 @@ export default () => {
     dispatch(toggleNewChannelModal(false));
   };
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="fade modal-backdrop show" style={{ zIndex: 1 }} onClick={hideModal}/>
       <div className="modal-dialog modal-dialog-centered" style={{ zIndex: 2 }}>
         <div className="modal-content">
           <div className="modal-header">
-            <div className="modal-title h4">Добавить канал</div>
+            <div className="modal-title h4">{t('add-channel')}</div>
             <button aria-label="Close" data-bs-dismiss="modal" type="button" className="btn btn-close"/>
           </div>
           <div className="modal-body">
@@ -38,16 +42,19 @@ export default () => {
                 } else {
                   socket.emit('newChannel', { name: values.channelName }, (result) => {
                     // todo chow error message
+                    if (result.status === 'ok') {
+                      toast(t('channel-created'));
+                    }
                   });
                 }
               }}
             >
               {
-                ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                ({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
                   <form onSubmit={handleSubmit}>
                     <div className="form-group">
                       <label className="visually-hidden" htmlFor="channelName">
-                        Имя канала
+                        {t('channel-name')}
                         <input
                           name="channelName"
                           id="channelName"
@@ -61,8 +68,14 @@ export default () => {
                         </div>
                       </label>
                       <div className="d-flex justify-content-end">
-                        <button type="button" className="me-2 btn btn-secondary" onClick={hideModal}>Отменить</button>
-                        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Отправить</button>
+                        <button
+                          type="button"
+                          className="me-2 btn btn-secondary"
+                          onClick={hideModal}
+                        >
+                          {t('cancel')}
+                        </button>
+                        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{t('send')}</button>
                       </div>
                     </div>
                   </form>

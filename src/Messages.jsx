@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import { useSelector } from 'react-redux';
+import filter from 'leo-profanity';
+import { useTranslation } from 'react-i18next';
 import SocketContext from './SocketContext.jsx';
 import AuthContext from './AuthContext.jsx';
 
@@ -15,8 +17,10 @@ export default () => {
   const { socket } = useContext(SocketContext);
   const { authContext: { username } } = useContext(AuthContext);
 
+  const { i18n } = useTranslation();
+  filter.loadDictionary(i18n.language);
   const handleAddMessage = (values) => {
-    const message = { text: values.msg, channelId: currentChannelId, username };
+    const message = { text: filter.clean(values.msg), channelId: currentChannelId, username };
     socket.emit('newMessage', message);
     // todo reset msg asyncly
     values.msg = '';
@@ -26,7 +30,12 @@ export default () => {
     <div className="col p-0 h-100">
       <div className="d-flex flex-column h-100">
         <div className="mb-4 p-3 shadow-sm small">
-          <p className="m-0"><b># {currentChannelName}</b></p>
+          <p className="m-0">
+            <b>
+              #
+              {currentChannelName}
+            </b>
+          </p>
           <span className="text-muted">
             {`${currentChannelMessages.length} сообщений`}
           </span>
@@ -34,11 +43,11 @@ export default () => {
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
           {
             currentChannelMessages
-              .map(({ id, username, text }) => (
-                <div key={id} className="text-break mb-2">
-                  <b>{username}</b>
+              .map((message) => (
+                <div key={message.id} className="text-break mb-2">
+                  <b>{message.username}</b>
                   :
-                  {text}
+                  {message.text}
                 </div>
               ))
           }

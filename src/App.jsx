@@ -22,7 +22,6 @@ export default ({ socket }) => {
     dispatch(removeChannel(channelWithId));
   });
   socket.on('renameChannel', (channelWithId) => {
-    // console.log('reacting on socket event', channelWithId);
     dispatch(renameChannel(channelWithId));
   });
   const localStorageUser = localStorage.getItem('user');

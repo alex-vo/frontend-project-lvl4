@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { object, string } from 'yup';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import AuthContext from './AuthContext.jsx';
 
 export default () => {
@@ -14,11 +15,12 @@ export default () => {
   }
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <>
-      <Link to="/login">log in</Link>
+      <Link to="/login">{t('login')}</Link>
       <Formik
-        initialValues={{ username: 'vasja', password: 'vasja1', passwordRepeat: 'vasja1' }}
+        initialValues={{ username: '', password: '', passwordRepeat: '' }}
         validate={(values) => {
           const result = {};
           if (values.password !== values.passwordRepeat) {
@@ -35,7 +37,6 @@ export default () => {
         onSubmit={(values, { setSubmitting, setErrors }) => {
           axios.post('/api/v1/signup', values)
             .then(({ data }) => {
-              console.log(data);
               const newAuthContext = {
                 isAuthenticated: true,
                 ...data,
@@ -55,14 +56,14 @@ export default () => {
         }}
       >
         {
-          ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          ({ values, errors, touched, handleChange, handleSubmit }) => (
             <form className="w-50" onSubmit={handleSubmit}>
-              <h1 className="text-center mb-4">Регистрация</h1>
+              <h1 className="text-center mb-4">{t('registration')}</h1>
               <div className="form-floating mb-3 form-group">
                 <label className="form-label" htmlFor="username">
-                  Имя пользователя
+                  {t('username')}
                   <input
-                    placeholder="От 3 до 20 символов"
+                    placeholder={t('3-to-20-chars')}
                     name="username"
                     autoComplete="username"
                     required=""
@@ -78,9 +79,9 @@ export default () => {
               </div>
               <div className="form-floating mb-3 form-group">
                 <label className="form-label" htmlFor="password">
-                  Пароль
+                  {t('password')}
                   <input
-                    placeholder="Не менее 6 символов"
+                    placeholder={t('min-6-chars')}
                     name="password"
                     autoComplete="new-password"
                     required=""
@@ -97,9 +98,9 @@ export default () => {
               </div>
               <div className="form-floating mb-3 form-group">
                 <label className="form-label" htmlFor="passwordRepeat">
-                  Подтвердите пароль
+                  {t('repeat-password')}
                   <input
-                    placeholder="Не менее 6 символов"
+                    placeholder={t('min-6-chars')}
                     name="passwordRepeat"
                     autoComplete="new-password"
                     required=""
@@ -114,7 +115,7 @@ export default () => {
                   </div>
                 </label>
               </div>
-              <button type="submit" className="w-100 btn btn-outline-primary">Зарегистрироваться</button>
+              <button type="submit" className="w-100 btn btn-outline-primary">{t('register')}</button>
             </form>
           )
         }

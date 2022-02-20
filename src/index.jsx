@@ -9,6 +9,8 @@ import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
 import App from './App.jsx';
 import store from './store.js';
+import './i18n.js';
+import 'react-toastify/scss/main.scss';
 
 const socket = io();
 ReactDOM.render(

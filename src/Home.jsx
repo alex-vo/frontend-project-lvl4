@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import AuthContext from './AuthContext.jsx';
 import { fetchData } from './slices/chatSlice.js';
 import Channels from './Channels.jsx';
@@ -33,6 +34,7 @@ export default () => {
       </div>
       {newChannelModal.open && <NewChannelModal/>}
       {renameChannelModal.open && <RenameChannelModal/>}
+      <ToastContainer/>
     </>
   );
 };
