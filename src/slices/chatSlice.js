@@ -2,7 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  chatData: { messages: [], channels: [], newChannelModal: { open: false }, renameChannelModal: { open: false } },
+  chatData: {
+    messages: [],
+    channels: [],
+    newChannelModal: { open: false },
+    renameChannelModal: { open: false },
+  },
 };
 
 export const fetchData = createAsyncThunk(

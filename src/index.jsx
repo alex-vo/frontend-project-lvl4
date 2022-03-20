@@ -1,8 +1,8 @@
 // @ts-check
 import React from 'react';
+import ReactDOM from 'react-dom';
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
-import ReactDOM from 'react-dom';
 
 import '../assets/application.scss';
 import { Provider } from 'react-redux';
