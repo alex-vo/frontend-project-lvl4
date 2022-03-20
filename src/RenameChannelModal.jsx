@@ -53,7 +53,7 @@ export default () => {
                 ({ values, errors, touched, handleChange, handleSubmit }) => (
                   <form onSubmit={handleSubmit}>
                     <div className=" form-group">
-                      <label className=" visually-hidden" htmlFor=" name">
+                      <label htmlFor=" name">
                         {t('channel-name')}
                         <input
                           name="channelName"
